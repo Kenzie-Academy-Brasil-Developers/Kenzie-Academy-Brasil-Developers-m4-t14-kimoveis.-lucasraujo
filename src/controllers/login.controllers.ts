@@ -10,7 +10,7 @@ const loginController = async (request : Request, response : Response) : Promise
 
     const token = await loginServices(bodyLogin)
 
-    return response.status(200).json(token)
+    return response.status(200).json({"token":token})
 
 }
 

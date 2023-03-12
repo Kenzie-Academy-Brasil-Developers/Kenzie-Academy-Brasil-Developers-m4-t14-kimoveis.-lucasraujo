@@ -1,12 +1,12 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
-import { Users } from "../../entities/users.entities";
+import { User } from "../../entities/users.entities";
 import { AppError } from "../../error";
 import { iCreateUserData } from "../../interfaces/users.interfaces";
 import { responseUserWithoutPassword } from "../../schemas/users.schema";
 
-const creatUserServiser = async (reqData: iCreateUserData) => {
-  const userRepository: Repository<Users> = AppDataSource.getRepository(Users);
+const creatUserServiser = async (reqData: iCreateUserData| any) => {
+  const userRepository: Repository<User> = AppDataSource.getRepository(User);
 
   const findUser = await userRepository.findOne({
     where: {
@@ -15,7 +15,7 @@ const creatUserServiser = async (reqData: iCreateUserData) => {
   });
 
   if (findUser) {
-    throw new AppError("User  already exists.", 409);
+    throw new AppError("Email already exists", 409);
   }
 
   const user = userRepository.create(reqData);

@@ -1,8 +1,11 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { getRounds, hashSync } from "bcryptjs";
+import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { getRealEstateController } from "../controllers/realEstate.controllers";
+import { Schedule } from "./schedule.entities";
 
 
-@Entity("users")
-class Users{
+@Entity("user")
+class User{
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -19,17 +22,29 @@ class Users{
     @Column({length:120})
     password:string;
 
-    @CreateDateColumn({type:'timestamp'})
+    @CreateDateColumn({type:'date'})
     createdAt:Date
 
-    @UpdateDateColumn({type:'timestamp'})
+    @UpdateDateColumn({type:'date'})
     updatedAt:Date
 
-    @DeleteDateColumn({type:'timestamp'})
+    @DeleteDateColumn({type:'date'})
     deletedAt:Date
+
+    @BeforeInsert()
+    @BeforeUpdate()
+    hashPassword(){
+        const isIncrypted = getRounds(this.password)
+        if(!isIncrypted){
+            this.password = hashSync(this.password, 10)
+        }
+    }
+
+    @OneToMany (() => Schedule , (Schedule) => Schedule.users)
+    schedule:Schedule[];
 
 }
 
 export{
-    Users
+    User
 }

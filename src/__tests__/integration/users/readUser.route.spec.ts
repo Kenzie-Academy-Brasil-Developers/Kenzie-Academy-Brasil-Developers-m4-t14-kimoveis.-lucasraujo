@@ -59,6 +59,7 @@ describe('GET /users', () => {
 
   it('Error: Must not be able list all users: Missing token', async () => {
     const response = await supertest(app).get(baseUrl).send();
+  
 
     expect(response.status).toBe(errorsMock.missingBearer.status);
     expect(response.body).toStrictEqual(errorsMock.missingBearer.error);
@@ -69,6 +70,7 @@ describe('GET /users', () => {
       .get(baseUrl)
       .set('Authorization', `Bearer ${tokenMock.genToken(false, 1)}`)
       .send();
+
 
     expect(response.status).toBe(errorsMock.forbidden.status);
     expect(response.body).toStrictEqual(errorsMock.forbidden.error);

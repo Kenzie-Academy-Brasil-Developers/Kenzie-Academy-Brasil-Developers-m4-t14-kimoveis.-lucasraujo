@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
-import { Categories } from "../../entities/categories.entities";
+import { Category } from "../../entities/categories.entities";
 import { AppError } from "../../error";
 import { iCreateCategories } from "../../interfaces/categories.interfaces";
 import { createCategoriesShema } from "../../schemas/categories.schema";
@@ -9,14 +9,14 @@ import { createCategoriesShema } from "../../schemas/categories.schema";
 
 const createCategories  = async (request : Request) =>{
 
-    const categoriesRepository : Repository<Categories>  = AppDataSource.getRepository(Categories)
+    const categoriesRepository : Repository<Category>  = AppDataSource.getRepository(Category)
 
     const userIsAdmin = request.user.admin
 
     const body: iCreateCategories = createCategoriesShema.parse(request.body)
 
     if(!userIsAdmin){
-        throw new AppError("insufficient permission",403)
+        throw new AppError("Insufficient permission",403)
     }
 
 
@@ -27,7 +27,7 @@ const createCategories  = async (request : Request) =>{
     })
 
     if(findCategory ){
-        throw new AppError("category already exists.", 409)
+        throw new AppError("Category already exists", 409)
     }
 
 

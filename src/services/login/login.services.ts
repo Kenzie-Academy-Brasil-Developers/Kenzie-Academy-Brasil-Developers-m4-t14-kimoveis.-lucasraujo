@@ -3,13 +3,13 @@ import jwt from "jsonwebtoken"
 
 import { Repository } from "typeorm"
 import { AppDataSource } from "../../data-source"
-import { Users } from "../../entities/users.entities"
+import { User } from "../../entities/users.entities"
 import { AppError } from "../../error"
 import { iLoginRequestData } from "../../interfaces/login.interfaces"
 
 const loginServices = async (bodyLogin: iLoginRequestData ) =>{
 
-    const userRepository : Repository<Users> = AppDataSource.getRepository(Users)
+    const userRepository : Repository<User> = AppDataSource.getRepository(User)
 
     const findUser  =  await userRepository.findOne({
         where:{
@@ -18,13 +18,13 @@ const loginServices = async (bodyLogin: iLoginRequestData ) =>{
     })
 
     if(!findUser){
-        throw new AppError("Wrong email or password",401 )
+        throw new AppError("Invalid credentials",401 )
     }
 
    const matchPassword : boolean = await compare(bodyLogin.password, findUser.password)
 
    if(!matchPassword){
-    throw new AppError("Wrong email or password",401 )
+    throw new AppError("Invalid credentials",401 )
    }
 
     const token : string = jwt.sign(

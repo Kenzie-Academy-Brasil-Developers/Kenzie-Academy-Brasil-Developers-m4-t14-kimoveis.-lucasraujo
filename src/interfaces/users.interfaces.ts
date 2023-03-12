@@ -3,6 +3,7 @@ import { createUserSchema, multipleResponseUserWithoutPasswordSchema } from "../
 
 type iCreateUserData =  z.infer<typeof createUserSchema>
 
+
 type iMultipleResponseUserWithoutPassword = z.infer<typeof  multipleResponseUserWithoutPasswordSchema>
 
 export{

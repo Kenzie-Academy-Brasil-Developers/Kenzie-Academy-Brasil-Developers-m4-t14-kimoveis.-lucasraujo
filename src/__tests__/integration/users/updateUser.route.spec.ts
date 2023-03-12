@@ -251,6 +251,7 @@ describe('PATCH /users', () => {
       )
       .send(updateUserRouteMock.userComplete);
 
+
     expect(response.status).toBe(errorsMock.notFound.user.status);
     expect(response.body).toStrictEqual(errorsMock.notFound.user.error);
   });

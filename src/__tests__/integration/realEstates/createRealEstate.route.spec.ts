@@ -5,6 +5,7 @@ import { AppDataSource } from '../../../data-source';
 import { Address, Category, RealEstate } from '../../../entities';
 import { createRealEstateRouteMock, errorsMock, tokenMock } from '../../mocks';
 
+
 describe('POST /realEstate', () => {
   let connection: DataSource;
   const baseUrl: string = '/realEstate';
@@ -67,6 +68,7 @@ describe('POST /realEstate', () => {
       expectBody: { ...realEstateInfo, category },
     };
 
+
     expect(response.status).toBe(expectResults.status);
     expect(response.body).toEqual(
       expect.objectContaining(expectResults.expectBody)
@@ -127,6 +129,7 @@ describe('POST /realEstate', () => {
         },
       },
     };
+
 
     expect(response.status).toBe(expectResults.status);
     expect(response.body).toStrictEqual(expectResults.expectBody);

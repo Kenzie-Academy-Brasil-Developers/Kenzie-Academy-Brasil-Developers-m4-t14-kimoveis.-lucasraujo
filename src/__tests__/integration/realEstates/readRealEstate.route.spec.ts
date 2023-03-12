@@ -32,6 +32,7 @@ describe('GET /realEstate', () => {
       expectBody: readRealEstate,
     };
 
+
     expect(response.status).toBe(expectResults.status);
     expect(response.body).toEqual(expectResults.expectBody);
   });

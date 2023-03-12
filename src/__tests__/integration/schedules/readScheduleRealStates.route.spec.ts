@@ -37,6 +37,8 @@ describe('GET /schedules/realEstate/:id', () => {
       expectBody: readRealEstate,
     };
 
+
+
     expect(response.status).toBe(expectResults.status);
     expect(response.body).toEqual(expectResults.expectBody);
   });

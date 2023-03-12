@@ -5,13 +5,11 @@ const UserCompleteSchema = z.object({
   id: z.number(),
   name: z.string().max(45),
   email: z.string().email().max(45),
-  admin: z.boolean(),
-  password: z.string().transform((pass) => {
-    return hashSync(pass);
-  }),
-  createdAt: z.date().nullable(),
-  updatedAt: z.date().nullable(),
-  deletedAt: z.date().nullable(),
+  admin: z.boolean().default(false).optional(),
+  password: z.string().max(120),
+  createdAt: z.string().nullable(),
+  updatedAt: z.string().nullable(),
+  deletedAt: z.string().nullable(),
 });
 
 const createUserSchema = UserCompleteSchema.omit({
@@ -27,9 +25,7 @@ const multipleResponseUserWithoutPasswordSchema = responseUserWithoutPassword.ar
 const UpdateUserSchema = z.object({
   name: z.string().max(45).optional(),
   email: z.string().email().max(45).optional(),
-  password: z.string().transform((pass) => {
-    return hashSync(pass);
-  }).optional()
+  password: z.string().optional()
 })
 
 

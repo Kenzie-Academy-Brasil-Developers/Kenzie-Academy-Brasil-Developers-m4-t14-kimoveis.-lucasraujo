@@ -21,7 +21,7 @@ const getUsersController = async (
   response: Response
 ): Promise<Response> => {
 
-  const allUsers : iMultipleResponseUserWithoutPassword =await  getAllUsersService(request)
+  const allUsers : iMultipleResponseUserWithoutPassword = await  getAllUsersService(request)
 
 
   return response.status(200).json(allUsers);
@@ -42,7 +42,7 @@ const deleteUsersController = async (
   response: Response
 ): Promise<Response> => {
 
-  const updatedUser = await deleteUserService(request )
+   await deleteUserService(request )
 
 
   return response.status(204).json();

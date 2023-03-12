@@ -1,9 +1,9 @@
 import { AppDataSource } from "../../data-source"
-import { Categories } from "../../entities/categories.entities"
+import { Category } from "../../entities/categories.entities"
 
 const getAllCategoriesServices = async() =>{
 
-    const categoriesRepository = AppDataSource.getRepository(Categories)
+    const categoriesRepository = AppDataSource.getRepository(Category)
 
     const allCategories = await categoriesRepository.find()
 

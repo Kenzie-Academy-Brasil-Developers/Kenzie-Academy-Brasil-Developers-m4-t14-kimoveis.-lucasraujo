@@ -1,17 +1,22 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { RealEstate } from "./realEstate.entities";
 
+@Entity("category")
+class Category {
+  @PrimaryGeneratedColumn()
+  id: number | string;
 
-@Entity("Categories")
-class Categories{
+  @Column({ length: 45, unique: true })
+  name: string;
 
-    @PrimaryGeneratedColumn()
-    id:number
-
-    @Column({length:45, unique:true})
-    name:string
-
+  @OneToMany(() => RealEstate, (RealEstate) => RealEstate.category)
+  realEstate: RealEstate[];
 }
 
-export{
-    Categories
-}
+export { Category };
