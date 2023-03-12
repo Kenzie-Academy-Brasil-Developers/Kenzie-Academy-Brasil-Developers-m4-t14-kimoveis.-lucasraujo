@@ -40,7 +40,7 @@ class User{
         }
     }
 
-    @OneToMany (() => Schedule , (Schedule) => Schedule.users)
+    @OneToMany (() => Schedule , (Schedule) => Schedule.user)
     schedule:Schedule[];
 
 }

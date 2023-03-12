@@ -76,10 +76,10 @@ const createShedulesServices = async (request: Request) => {
 
   const schedules = await schedulesRepository
     .createQueryBuilder("schedules")
-    .innerJoinAndSelect("schedules.users", "users")
+    .innerJoinAndSelect("schedules.user", "user")
     .where("schedules.date = :date", { date: date })
     .andWhere("schedules.hour = :hour", { hour: hour })
-    .andWhere("users.id = :uid", { uid: userId })
+    .andWhere("user.id = :uid", { uid: userId })
     .getOne();
 
     
@@ -93,7 +93,7 @@ const createShedulesServices = async (request: Request) => {
   const newSchedule = schedulesRepository.create({
     date: date2,
     hour: hour,
-    users: user,
+    user: user,
     realEstate: realEstate,
   });
 

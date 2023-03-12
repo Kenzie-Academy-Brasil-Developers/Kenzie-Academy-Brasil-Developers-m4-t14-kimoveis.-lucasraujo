@@ -15,7 +15,7 @@ class Schedule {
 
   @ManyToOne(() => User)
   @JoinColumn()
-  users: User;
+  user: User;
 
   @ManyToOne(() => RealEstate)
   realEstate: RealEstate;

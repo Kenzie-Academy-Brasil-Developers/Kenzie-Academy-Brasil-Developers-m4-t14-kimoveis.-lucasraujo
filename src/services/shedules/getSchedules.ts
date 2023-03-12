@@ -20,9 +20,10 @@ const getSchedules = async (request : Request) =>{
        .innerJoinAndSelect("realEstate.address","address")
        .innerJoinAndSelect("realEstate.category","category")
        .leftJoinAndSelect("realEstate.schedules","schedules")
-       .leftJoinAndSelect("schedules.users","users")
+       .leftJoinAndSelect("schedules.user","user")
        .where("realEstate.id = :idreal",{idreal: idRealEstates})
        .getOne()
+
 
      if(!objResp){
         throw new AppError("RealEstate not found",404)
