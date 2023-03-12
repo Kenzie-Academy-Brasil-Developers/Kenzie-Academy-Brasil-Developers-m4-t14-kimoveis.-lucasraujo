@@ -41,7 +41,7 @@ class User{
     }
 
     @OneToMany (() => Schedule , (Schedule) => Schedule.user)
-    schedule:Schedule[];
+    schedules:Schedule[];
 
 }
 

@@ -22,7 +22,7 @@ const createShedulesServices = async (request: Request) => {
   const userRepository = AppDataSource.getRepository(User);
   const realEstateRepository = AppDataSource.getRepository(RealEstate);
   const reqBody = requestShedulesSchema.parse(request.body);
-  const userId = request.user.id;
+  const userId = Number(request.user.id);
   const realEstateId = reqBody.realEstateId;
   const date = new Date(reqBody.date);
   const date2 = reqBody.date;
@@ -74,21 +74,23 @@ const createShedulesServices = async (request: Request) => {
     );
   }
 
-  const schedules = await schedulesRepository
-    .createQueryBuilder("schedules")
-    .innerJoinAndSelect("schedules.user", "user")
-    .where("schedules.date = :date", { date: date })
-    .andWhere("schedules.hour = :hour", { hour: hour })
-    .andWhere("user.id = :uid", { uid: userId })
-    .getOne();
 
-    
-  if (schedules) {
+  const userTest = await userRepository.createQueryBuilder("user")
+  .leftJoinAndSelect("user.schedules","schedules")
+  .where("user.id = :userId",{userId:userId })
+  .andWhere("schedules.date",{date: date2 })
+  .andWhere("schedules.hour = :hour", { hour: hour })
+  .getOne()
+
+
+
+  if ( userTest ) {
     throw new AppError(
-      "User schedule to this real estate at this date and time already exists",
-      409
-    );
-  }
+       "User schedule to this real estate at this date and time already exists",
+       409
+   );
+   }
+
 
   const newSchedule = schedulesRepository.create({
     date: date2,
